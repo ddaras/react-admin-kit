@@ -1,16 +1,24 @@
 import React from 'react';
 
-import Element from '@components/Element';
-import Segment from '@components/Segment';
-import Anchor from '@components/Anchor';
+import Element from '@components/elements/Element';
+import Paper from '@components/modules/Paper';
+import Anchor from '@components/elements/Anchor';
 
 const menu = ['Dashboard', 'Search Talent', 'Candidates'];
 
 const Home = () => {
 	return (
-		<Element minH="100vh" d="flex">
-			<Element pos="fixed" top={0} left={0} w={260} h="100vh" kind="ghost">
-				<Element m="34px 0">
+		<Element>
+			<Element
+				position="fixed"
+				top={0}
+				left={0}
+				bottom={0}
+				width={260}
+				borderRight="1px solid"
+				borderColor="border"
+			>
+				<Element my={34}>
 					{menu.map(item => (
 						<Element key={item} p="0 24px">
 							<Anchor to="/sad">{item}</Anchor>
@@ -18,30 +26,22 @@ const Home = () => {
 					))}
 				</Element>
 			</Element>
-			<Element
-				m="0 0 0 260px"
-				p="24px"
-				kind="default"
-				d="flex"
-				direction="column"
-				flex="1"
-				align="flex-start"
-			>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
-				<Segment w="100%">Main</Segment>
+			<Element ml={260} p={24}>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
+				<Paper>Main</Paper>
 			</Element>
 		</Element>
 	);

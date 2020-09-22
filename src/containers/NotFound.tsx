@@ -1,14 +1,14 @@
 import React from 'react';
 
-import Element from '@components/Element';
-import Segment from '@components/Segment';
+import Element from '@components/elements/Element';
+import Paper from '@components/modules/Paper';
 
 const NotFound = () => {
 	return (
 		<Element>
-			<Segment>
+			<Paper>
 				<h1>Not found :(</h1>
-			</Segment>
+			</Paper>
 		</Element>
 	);
 };

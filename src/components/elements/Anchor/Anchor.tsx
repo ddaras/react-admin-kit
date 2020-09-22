@@ -1,9 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import Element, { IProps } from '@components/Element/Element';
+import Element from '@components/elements/Element/Element';
+import { IProps } from '@components/elements/Element/styled';
 
-const Anchor = ({ ...rest }: IProps) => {
+const Anchor = ({ ...rest }: IProps & { to: string }) => {
 	return <Element {...rest} />;
 };
 
