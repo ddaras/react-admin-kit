@@ -30,18 +30,6 @@ const Home = () => {
 				<Paper>Main</Paper>
 				<Paper>Main</Paper>
 				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
-				<Paper>Main</Paper>
 			</Element>
 		</Element>
 	);
