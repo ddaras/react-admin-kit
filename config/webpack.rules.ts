@@ -41,20 +41,23 @@ export const cssConfig: webpack.Rule = {
 		MiniCssExtractPlugin.loader,
 		'css-loader',
 		{
-			loader: 'postcss-loader',
-			options: {
-				plugins: (loader: IHotLoader): string[] => {
-					return loader.hot
-						? postcssPlugins
-						: [...postcssPlugins, require('cssnano')({ discardComments: { removeAll: true } })];
-				}
-			}
+			loader: 'postcss-loader'
+			// options: {
+			// 	plugins: (loader: IHotLoader): string[] => {
+			// 		return loader.hot
+			// 			? postcssPlugins
+			// 			: [
+			// 					...postcssPlugins,
+			// 					require('cssnano')({ discardComments: { removeAll: true } })
+			// 			  ];
+			// 	}
+			// }
 		},
 		'sass-loader'
 	]
 };
 
-export const fontsConfig: webpack.Rule = {
+export const fontsConfig: webpack.RuleSetRule = {
 	test: /\.(eot|otf|ttf|woff|woff2)$/,
 	use: 'file-loader'
 };

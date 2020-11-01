@@ -2,55 +2,78 @@ import React from 'react';
 
 import Element from '@components/elements/Element/Element';
 import { IProps } from '@components/elements/Element/styled';
+import Text from '@components/elements/Text';
+import Loader from '@components/modules/Loader';
 
-const Button = ({ children, ...rest }: IProps) => {
-	return <Element {...rest}>{children}</Element>;
+interface IButton extends IProps {
+	onClick: () => void;
+	isLoading: boolean;
+	isDisabled: boolean;
+	isFluid: boolean;
+}
+
+const Button = ({
+	children,
+	isLoading,
+	isDisabled,
+	isFluid,
+	...rest
+}: IButton) => {
+	const width = isFluid ? '100%' : 'auto';
+
+	return (
+		<Element disabled={isDisabled} {...rest} width={width}>
+			<div style={{ position: 'relative' }}>
+				<Text as="span" opacity={isLoading ? 0 : 1}>
+					{children}
+				</Text>
+				{isLoading && <Loader color="white" kind="filled" />}
+			</div>
+		</Element>
+	);
 };
 
 Button.defaultProps = {
 	as: 'button',
+	onClick: null,
+	isLoading: false,
+	isDisabled: false,
+	isFluid: false,
 	size: 'md',
+	transition: 'background-color 300ms',
 	sizes: {
 		sm: {
-			p: 2,
-			borderRadius: 0
+			px: 3,
+			py: 1,
+			fontSize: 'sm',
+			borderRadius: 'sm'
 		},
 		md: {
-			px: 16,
-			py: 3,
-			borderRadius: 1
+			px: 5,
+			py: 2,
+			borderRadius: 'md'
 		},
 		lg: {
-			p: 4,
-			borderRadius: 2
+			px: 6,
+			py: 3,
+			borderRadius: 'lg'
 		}
 	},
 	kind: 'secondary',
 	kinds: {
 		primary: {
-			letterSpacing: 1,
 			color: 'white',
-			bg: 'primary',
-			border: '1px solid',
-			borderColor: 'primary',
-			boxShadow: 1,
-			'&:hover': {
-				boxShadow: 3
-			},
-			'&:active': {
-				boxShadow: 2
-			}
+			bg: 'indigo8'
 		},
 		secondary: {
-			color: 'darkgrey',
-			bg: 'lightgrey',
-			border: '1px solid',
-			borderColor: 'grey'
+			color: 'grey8',
+			bg: 'grey2'
 		},
 		ghost: {
-			color: 'black',
-			bg: 'white',
-			border: 0
+			bg: 'transparent',
+			'&:hover': {
+				bg: 'grey1'
+			}
 		}
 	}
 };

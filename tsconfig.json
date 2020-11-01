@@ -7,6 +7,9 @@
 			"@root/*": ["/*"],
 			"@assets/*": ["src/assets/*"],
 			"@utilities/*": ["src/utilities/*"],
+			"@hooks/*": ["src/hooks/*"],
+			"@contexts/*": ["src/contexts/*"],
+			"@graphql/*": ["src/graphql/*"],
 			"@components/*": ["src/components/*"],
 			"@containers/*": ["src/containers/*"]
 		},

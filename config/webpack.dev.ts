@@ -34,7 +34,16 @@ const config: IConfiguration = {
 		publicPath: '/'
 	},
 	module: {
-		rules: [tsConfigDev, htmlConfig, cssConfig, fontsConfig, svgConfig, svgCSSConfig, imagesConfig, mediaConfig]
+		rules: [
+			tsConfigDev,
+			htmlConfig,
+			cssConfig,
+			fontsConfig,
+			svgConfig,
+			svgCSSConfig,
+			imagesConfig,
+			mediaConfig
+		]
 	},
 	resolve: {
 		alias: {
@@ -43,6 +52,9 @@ const config: IConfiguration = {
 			'@root': PATHS.root,
 			'@assets': PATHS.assets,
 			'@utilities': PATHS.utilities,
+			'@hooks': PATHS.hooks,
+			'@contexts': PATHS.contexts,
+			'@graphql': PATHS.graphql,
 			'@components': PATHS.components,
 			'@containers': PATHS.containers
 			// "react-dom": "@hot-loader/react-dom",
@@ -77,14 +89,14 @@ const config: IConfiguration = {
 		hot: true,
 		hotOnly: true,
 		noInfo: true,
-		clientLogLevel: 'error',
+		clientLogLevel: 'silent',
 		stats: 'none',
 		contentBase: './dist',
 		historyApiFallback: true
 	},
 	stats: 'errors-only',
-	performance: { hints: false },
-	optimization: { splitChunks: { chunks: 'all' } }
+	performance: { hints: 'warning' },
+	optimization: { splitChunks: { chunks: 'all' }, noEmitOnErrors: false }
 };
 
 module.exports = config;

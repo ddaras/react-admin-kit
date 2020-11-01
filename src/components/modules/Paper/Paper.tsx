@@ -3,45 +3,39 @@ import React from 'react';
 import Element from '@components/elements/Element/Element';
 import { IProps } from '@components/elements/Element/styled';
 
-const Segment = ({ children, ...rest }: IProps) => {
-	return <Element {...rest}>{children}</Element>;
-};
+const Segment = React.forwardRef(({ children, ...rest }: IProps, ref) => {
+	return (
+		<Element ref={ref} {...rest}>
+			{children}
+		</Element>
+	);
+});
 
 Segment.defaultProps = {
 	size: 'md',
 	sizes: {
 		sm: {
 			p: 3,
-			borderRadius: 1,
-			boxShadow: 0
+			borderRadius: 'sm',
+			boxShadow: 'sm'
 		},
 		md: {
 			p: 5,
-			borderRadius: 1,
-			boxShadow: 1
+			borderRadius: 'md',
+			boxShadow: 'md'
 		},
 		lg: {
 			p: 8,
-			borderRadius: 2,
-			boxShadow: 2
+			borderRadius: 'lg',
+			boxShadow: 'lg'
 		}
 	},
 	kind: 'ghost',
 	kinds: {
 		ghost: {
-			color: 'text',
-			bg: 'background',
-			border: '1px solid',
-			borderColor: 'border',
-			boxShadow: 1,
-			'&:focus': {
-				borderColor: 'borderfocus',
-				boxShadow: 2
-			}
+			bg: 'white'
 		}
-	},
-	border: '1px solid',
-	borderColor: 'border'
+	}
 };
 
 export default Segment;
