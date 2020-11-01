@@ -7,7 +7,7 @@ interface IHotLoader extends webpack.NewLoader {
 	hot: boolean;
 }
 
-export const tsConfigDev: webpack.Rule = {
+export const tsConfig: webpack.Rule = {
 	test: /\.tsx?$/,
 	use: 'ts-loader',
 	exclude: PATHS.nodeModules,

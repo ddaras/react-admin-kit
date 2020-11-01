@@ -8,7 +8,7 @@ import Dotenv from 'dotenv-webpack';
 
 import { PATHS } from './paths';
 import {
-	tsConfigDev,
+	tsConfig,
 	htmlConfig,
 	cssConfig,
 	fontsConfig,
@@ -17,6 +17,8 @@ import {
 	imagesConfig,
 	mediaConfig
 } from './webpack.rules';
+
+import alias from './webpack.alias';
 
 interface IConfiguration extends WebpackConfiguration {
 	devServer?: WebpackDevServerConfiguration;
@@ -35,7 +37,7 @@ const config: IConfiguration = {
 	},
 	module: {
 		rules: [
-			tsConfigDev,
+			tsConfig,
 			htmlConfig,
 			cssConfig,
 			fontsConfig,
@@ -46,19 +48,7 @@ const config: IConfiguration = {
 		]
 	},
 	resolve: {
-		alias: {
-			'@': PATHS.src,
-			'@src': PATHS.src,
-			'@root': PATHS.root,
-			'@assets': PATHS.assets,
-			'@utilities': PATHS.utilities,
-			'@hooks': PATHS.hooks,
-			'@contexts': PATHS.contexts,
-			'@graphql': PATHS.graphql,
-			'@components': PATHS.components,
-			'@containers': PATHS.containers
-			// "react-dom": "@hot-loader/react-dom",
-		},
+		alias,
 		extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
 		modules: ['src', 'node_modules']
 	},
