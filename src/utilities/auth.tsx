@@ -1,14 +1,13 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 
-import useMe from '@hooks/useMe';
+import useAuth from '@/hooks/useAuth';
 
 export const PrivateRoute = (props: any) => {
-	const { logout } = useMe();
+	const { logout } = useAuth();
 
 	if (!localStorage.getItem('token')) {
-		logout();
-		return null;
+		return <Redirect to="/" />;
 	}
 
 	return <Route {...props} />;

@@ -1,1 +1,1 @@
-# MOHBOT
+# react-admin-kit

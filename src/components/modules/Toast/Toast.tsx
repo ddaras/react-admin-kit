@@ -11,8 +11,8 @@ interface IToast extends IProps {
 
 const Toast = ({ content, ...rest }: IToast) => {
 	const paperStyle = {
-		py: 1,
-		px: 4,
+		py: 4,
+		px: 8,
 		bg: 'red1',
 		color: 'red8',
 		border: 0

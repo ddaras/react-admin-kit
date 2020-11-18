@@ -2,32 +2,47 @@ import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
 const useForm = (mutation: any, initialState: Object = {}) => {
-	const [mutateLogin, { loading }] = useMutation(mutation);
+	const [mutate, { loading }] = useMutation(mutation);
 	const [values, setValues] = useState<Object>(initialState);
 
-	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+		// one step nested keys
+		let pair;
+		const key: any = e.target.name.split('.');
+		const val = e.target.value;
+		if (key.length > 1) {
+			pair = {
+				[key[0]]: {
+					[key[1]]: val
+				}
+			};
+		} else {
+			pair = {
+				[key]: val
+			};
+		}
+
 		setValues({
 			...values,
-			[e.target.name]: e.target.value
+			...pair
 		});
 	};
 
-	const handleSubmit = (
-		onSuccess: any = () => {},
-		onError: any = (): any => {}
-	) => async (e: React.FormEvent<HTMLFormElement>) => {
+	const handleSubmit = (onSubmit: any = () => {}) => async (
+		e: React.FormEvent<HTMLFormElement>
+	) => {
 		e.preventDefault();
 		try {
-			const res = await mutateLogin({
+			const res = await mutate({
 				variables: values
 			});
-			onSuccess(res);
+			onSubmit(res);
 		} catch (error) {
-			onError(error);
+			onSubmit(error);
 		}
 	};
 
-	return { values, handleInputChange, handleSubmit, loading };
+	return { values, handleChange, handleSubmit, loading };
 };
 
 export default useForm;

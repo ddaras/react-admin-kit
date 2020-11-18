@@ -12,7 +12,7 @@ import MenuItem from '@components/collections/Menu/MenuItem';
 import Row from '@components/collections/Grid/Row';
 import Col from '@components/collections/Grid/Col';
 
-import useMe from '@hooks/useMe';
+import useAuth from '@/hooks/useAuth';
 
 interface ISidebar extends IProps {
 	handleLogout: () => void;
@@ -21,7 +21,7 @@ interface ISidebar extends IProps {
 
 const Sidebar = ({ handleLogout, menuItems, ...rest }: ISidebar) => {
 	const history = useHistory();
-	const { me } = useMe();
+	const { me, loading } = useAuth();
 
 	return (
 		<Element {...rest}>
@@ -32,7 +32,7 @@ const Sidebar = ({ handleLogout, menuItems, ...rest }: ISidebar) => {
 							<Row>
 								<Col width={{ sm: 3.4 / 12 }}>
 									<Avatar
-										src="https://material-components-web.appspot.com/images/animal3.svg"
+										src="https://pickaface.net/gallery/avatar/unr_hugo_201118_2136_95ceyb.png"
 										borderRadius="rounded"
 									/>
 								</Col>
@@ -41,7 +41,7 @@ const Sidebar = ({ handleLogout, menuItems, ...rest }: ISidebar) => {
 										Welcome
 									</Text>
 									<Text as="h3" truncate>
-										{me?.firstName}
+										{!loading && me?.username}
 									</Text>
 								</Col>
 							</Row>

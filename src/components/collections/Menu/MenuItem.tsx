@@ -20,7 +20,8 @@ const MenuItem = ({ children, onClick, to, ...rest }: IMenuItem) => {
 
 MenuItem.defaultProps = {
 	onClick: null,
-	my: 1,
+	display: 'flex',
+	my: 2,
 	kind: 'ghost',
 	kinds: {
 		primary: {

@@ -1,20 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 
 import Element from '@components/elements/Element';
 import Sidebar from '@components/shared/Sidebar';
 
-import useMe from '@hooks/useMe';
+import useAuth from '@/hooks/useAuth';
 
 const menuItems = [
-	{ label: 'Cases', path: '/' },
-	{ label: 'Requests', path: '/requests' }
+	{ label: 'Home', path: '/' },
+	{ label: 'Products', path: '/products' },
+	{ label: 'Settings', path: '/settings' }
 ];
 
 const LayoutAdmin = ({ children }: any) => {
 	const history = useHistory();
 
-	const { logout } = useMe();
+	const { logout } = useAuth();
 
 	const handleLogout = () => {
 		logout();

@@ -19,19 +19,19 @@ const Settings = () => {
 			<Paper>
 				<Row>
 					<Col width={{ md: 6 / 12 }}>
-						<Text as="label">MOH Url</Text>
+						<Text as="label">Username</Text>
 						<Input />
 						<Divider size="xs" isHidden />
 
-						<Text as="label">MOH Username</Text>
+						<Text as="label">Email</Text>
 						<Input />
 						<Divider size="xs" isHidden />
 
-						<Text as="label">MOH Password</Text>
+						<Text as="label">Website</Text>
 						<Input />
 						<Divider size="xs" isHidden />
 
-						<Text as="label">Provider Personam Number</Text>
+						<Text as="label">Password</Text>
 						<Input />
 						<Divider isHidden />
 

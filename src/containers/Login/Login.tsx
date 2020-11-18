@@ -7,27 +7,41 @@ import Paper from '@components/modules/Paper';
 import LoginForm from '@components/shared/LoginForm';
 
 import useForm from '@hooks/useForm';
-import useMe from '@hooks/useMe';
+import useAuth from '@/hooks/useAuth';
 
 import LOGIN from '@graphql/mutation/login';
 
 const Login = ({ history }: RouteComponentProps) => {
-	const { loading, handleInputChange, handleSubmit } = useForm(LOGIN);
-	const { login, refetch } = useMe();
+	const { values, loading, handleChange, handleSubmit } = useForm(LOGIN, {
+		id: 1,
+		input: {
+			username: 'Bret'
+		}
+	});
+
+	const { login, check } = useAuth();
+
+	const handleLogin = async (res: any) => {
+		login(res.data.updateUser.id);
+		await check();
+		history.push('/');
+	};
 
 	return (
 		<Paper size="lg" minWidth="380px" maxWidth="440px">
-			<Text as="h2">MohBot</Text>
+			<Text as="h2">Login</Text>
 			<Divider isHidden size="lg" />
 
 			<LoginForm
-				handleSubmit={handleSubmit((res: any) => {
-					refetch();
-					login(res.data.login.token);
-				})}
-				handleInputChange={handleInputChange}
+				onSubmit={handleSubmit(handleLogin)}
+				handleInputChange={handleChange}
 				loading={loading}
 			/>
+
+			<Divider size="sm" />
+			<Text as="small">
+				This is a demo version. No need credentials to login
+			</Text>
 		</Paper>
 	);
 };

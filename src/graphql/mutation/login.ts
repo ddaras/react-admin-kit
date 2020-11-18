@@ -1,9 +1,10 @@
 import gql from 'graphql-tag';
 
+// just faking. real mutation should be login with input credentials returning user token
 const LOGIN = gql`
-	mutation login($username: String!, $password: String!) {
-		login(username: $username, password: $password) {
-			token
+	mutation updateUser($id: ID!, $input: UpdateUserInput!) {
+		updateUser(id: $id, input: $input) {
+			id
 		}
 	}
 `;

@@ -1,12 +1,10 @@
 import gql from 'graphql-tag';
 
 const ME = gql`
-	query me {
-		me {
+	query user($id: ID!) {
+		user(id: $id) {
 			id
 			username
-			firstName
-			lastName
 		}
 	}
 `;

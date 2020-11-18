@@ -4,12 +4,16 @@ import Button from '@components/elements/Button';
 import Input from '@components/elements/Input';
 import Divider from '@components/elements/Divider';
 
-const LoginForm = ({ handleSubmit, handleInputChange, loading }: any) => {
+const LoginForm = ({
+	onSubmit: handleSubmit,
+	handleInputChange,
+	loading
+}: any) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Input
 				placeholder="Username"
-				name="username"
+				name="input.username"
 				onChange={handleInputChange}
 			/>
 			<Divider isHidden size="sm" />
