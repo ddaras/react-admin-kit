@@ -35,14 +35,14 @@ const AppRoute = ({
 	const history = useHistory();
 	const [user, setUser] = React.useState<any>({});
 
-	const { me, loading, error, check, logout } = useAuth();
+	const { me, loading, error, called, check, logout } = useAuth();
 
 	React.useEffect(() => {
-		if (error) {
+		if (called && !me) {
 			logout();
 			history.push('/login');
 		}
-	}, [error]);
+	}, [me]);
 
 	React.useEffect(() => {
 		check();

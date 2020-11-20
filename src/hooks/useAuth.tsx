@@ -13,6 +13,7 @@ type Token = string;
 interface AuthContextType {
 	me: User;
 	loading: boolean;
+	called?: boolean;
 	error?: ApolloError;
 	check: () => void;
 	login: (args?: Token) => void;
@@ -36,7 +37,7 @@ export const AuthProvider = ({ children }: any) => {
 	const [user, setUser] = React.useState<any>({});
 
 	// fake data
-	const [check, { loading, error, refetch }] = useLazyQuery(ME, {
+	const [check, { loading, error, called }] = useLazyQuery(ME, {
 		onCompleted: res => {
 			if (res) {
 				setUser(res.user);
@@ -55,15 +56,12 @@ export const AuthProvider = ({ children }: any) => {
 	};
 
 	const handleCheck = () => {
-		check({
-			variables: {
-				id
-			}
-		});
+		check();
 	};
 
 	const value = {
 		me: user,
+		called,
 		loading,
 		error,
 		check: handleCheck,
