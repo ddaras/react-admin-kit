@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 
-import Toast from '@components/modules/Toast';
+import Toast from '@modules/Toast';
 
 type ToastManager = {
 	addToast: (content: string, options?: any) => void;
@@ -18,7 +18,7 @@ interface IToast {
 	id: number;
 	content: string;
 	options: {
-		variant?: string;
+		kind: string;
 	};
 }
 
@@ -57,6 +57,7 @@ const ToastProvider = ({ children }: any) => {
 				{toasts.map(item => (
 					<Toast
 						key={item.id}
+						kind={item.options.kind || 'default'}
 						content={item.content}
 						onClick={() => removeToast(item.id)}
 					/>

@@ -1,10 +1,10 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
 
-import Element from '@components/elements/Element';
-import Button from '@components/elements/Button';
-import Divider from '@components/elements/Divider';
-import Paper from '@components/modules/Paper';
+import Element from '@components/Element';
+import Button from '@components/Button';
+import Divider from '@components/Divider';
+import Paper from '@modules/Paper';
 
 const NotFound = () => {
 	const history = useHistory();

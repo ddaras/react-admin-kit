@@ -1,9 +1,22 @@
 import * as React from 'react';
 import { render } from 'react-dom';
+import { ApolloProvider } from '@apollo/client';
+
+import { AuthProvider } from '@/hooks/useAuth';
+
 import { App } from './App';
 
+import { client } from './apollo';
+
 const renderApp = (Application: any) =>
-	render(<Application />, document.getElementById('root'));
+	render(
+		<ApolloProvider client={client}>
+			<AuthProvider>
+				<Application />
+			</AuthProvider>
+		</ApolloProvider>,
+		document.getElementById('root')
+	);
 
 renderApp(App);
 

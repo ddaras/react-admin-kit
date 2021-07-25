@@ -1,11 +1,20 @@
 import * as React from 'react';
-import { useLazyQuery, ApolloError } from '@apollo/client';
+import { useHistory } from 'react-router-dom';
+import { useQuery, ApolloError } from '@apollo/client';
+
+import LoaderCentered from '@/modules/LoaderCentered';
 
 import ME from '@graphql/query/me';
+import Loader from '@/modules/Loader';
 
 interface User {
-	id?: number;
-	username: string;
+	id?: string;
+	email?: string;
+	accessToken?: string;
+	picture?: string;
+	firstName?: string;
+	shopName?: string;
+	shopDescription?: string;
 }
 
 type Token = string;
@@ -15,59 +24,48 @@ interface AuthContextType {
 	loading: boolean;
 	called?: boolean;
 	error?: ApolloError;
-	check: () => void;
 	login: (args?: Token) => void;
 	logout: () => void;
+	refetch: () => void;
 }
 
 export const AuthContext = React.createContext<AuthContextType>({
-	me: {
-		username: ''
-	},
+	me: {},
 	loading: false,
-	check: () => {},
 	login: () => {},
-	logout: () => {}
+	logout: () => {},
+	refetch: () => {}
 });
 
 export const AuthProvider = ({ children }: any) => {
-	const [id, setId] = React.useState<string | null>(
-		localStorage.getItem('token')
-	);
-	const [user, setUser] = React.useState<any>({});
-
-	// fake data
-	const [check, { loading, error, called }] = useLazyQuery(ME, {
-		onCompleted: res => {
-			if (res) {
-				setUser(res.user);
-			}
-		}
-	});
+	const history = useHistory();
+	const { data, loading, error, called, refetch } = useQuery(ME);
 
 	const login = (token: string) => {
-		setId(token);
 		localStorage.setItem('token', token);
 	};
 
 	const logout = () => {
-		setId(null);
 		localStorage.removeItem('token');
 	};
 
-	const handleCheck = () => {
-		check();
-	};
+	if (error) {
+		logout();
+	}
 
 	const value = {
-		me: user,
+		me: data ? data.me : {},
 		called,
 		loading,
 		error,
-		check: handleCheck,
+		refetch,
 		login,
 		logout
 	} as AuthContextType;
+
+	React.useEffect(() => {}, []);
+
+	if (loading) return <LoaderCentered />;
 
 	return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };

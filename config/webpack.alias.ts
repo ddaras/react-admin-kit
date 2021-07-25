@@ -10,6 +10,7 @@ export default {
 	'@contexts': PATHS.contexts,
 	'@graphql': PATHS.graphql,
 	'@components': PATHS.components,
-	'@containers': PATHS.containers
+	'@containers': PATHS.containers,
+	'@modules': PATHS.modules
 	// "react-dom": "@hot-loader/react-dom",
 };

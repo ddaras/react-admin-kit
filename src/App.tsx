@@ -3,100 +3,106 @@ import {
 	BrowserRouter as Router,
 	Switch,
 	Route,
-	useHistory
+	Redirect
 } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 import { Theme } from 'styled-system';
-import { ApolloProvider } from '@apollo/client';
+import LogRocket from 'logrocket';
 
-import Loader from '@/components/modules/Loader';
-import { GlobalFonts, GlobalStyles, ResetCSS } from '@/utilities/styles';
-import { PrivateRoute } from '@/utilities/auth';
-import useAuth, { AuthProvider } from '@/hooks/useAuth';
+import { GlobalStyles, ResetCSS } from '@/utilities/styles';
 import { ToastProvider } from '@contexts/ToastContext';
+
+import useAuth from '@/hooks/useAuth';
 
 import { routes, AsyncPage, IRoute } from './routes';
 import baseTheme, { colors, Modes } from './theme';
-import { client } from './apollo';
 
 import './utilities/fonts.scss';
+
+LogRocket.init('rezrp0/mmm');
 
 const getTheme = (mode: keyof Modes) => {
 	return { ...baseTheme, colors: colors[mode] } as Theme;
 };
 
-const AppRoute = ({
+const PrivateRoute = ({
 	layout: Layout,
 	path,
 	exact,
 	component,
-	isPrivate
+	isAuth
 }: any) => {
-	const history = useHistory();
-	const [user, setUser] = React.useState<any>({});
-
-	const { me, loading, error, called, check, logout } = useAuth();
-
-	React.useEffect(() => {
-		if (called && !me) {
-			logout();
-			history.push('/login');
-		}
-	}, [me]);
-
-	React.useEffect(() => {
-		check();
-	}, []);
-
-	if (loading)
-		return (
-			<div
-				style={{
-					display: 'flex',
-					justifyContent: 'center',
-					alignItems: 'center',
-					height: '100vh'
-				}}
-			>
-				<Loader />
-			</div>
-		);
+	if (!isAuth) return <Redirect to="/login" />;
 
 	return (
 		<Layout>
-			{isPrivate ? (
-				<PrivateRoute path={path} exact={exact} component={component} />
-			) : (
-				<Route path={path} exact={exact} component={component} />
-			)}
+			<Route path={path} exact={exact} component={component} />
 		</Layout>
+	);
+};
+
+const PublicRoute = ({ layout: Layout, path, exact, component }: any) => {
+	return (
+		<Layout>
+			<Route path={path} exact={exact} component={component} />
+		</Layout>
+	);
+};
+
+const AppRoute = ({
+	layout,
+	path,
+	exact,
+	component,
+	isPrivate,
+	isAuth
+}: any) => {
+	return (
+		<>
+			{isPrivate ? (
+				<PrivateRoute
+					layout={layout}
+					path={path}
+					isAuth={isAuth}
+					exact={exact}
+					component={component}
+				/>
+			) : (
+				<PublicRoute
+					layout={layout}
+					path={path}
+					exact={exact}
+					component={component}
+				/>
+			)}
+		</>
 	);
 };
 
 export const App = () => {
 	const [colorMode, setColorMode] = React.useState<keyof Modes>('light');
 	const theme = getTheme(colorMode);
+	const { me } = useAuth();
 
 	return (
-		<ApolloProvider client={client}>
-			<AuthProvider>
-				<ThemeProvider theme={theme}>
-					{/* <GlobalFonts /> */}
-					<ResetCSS />
-					<GlobalStyles />
+		<ThemeProvider theme={theme}>
+			<ResetCSS />
+			<GlobalStyles />
 
-					<ToastProvider>
-						<Router>
-							<Switch>
-								{routes.map((route: IRoute) => (
-									<AppRoute key={route.path} {...route} />
-								))}
-								<Route component={() => <AsyncPage page="NotFound" />} />
-							</Switch>
-						</Router>
-					</ToastProvider>
-				</ThemeProvider>
-			</AuthProvider>
-		</ApolloProvider>
+			<ToastProvider>
+				<Router>
+					<Switch>
+						{routes.map((route: IRoute) => (
+							<AppRoute
+								key={route.path}
+								isAuth={Object.keys(me).length > 0}
+								{...route}
+							/>
+						))}
+						<Route component={() => <AsyncPage page="NotFound" />} />
+					</Switch>
+				</Router>
+			</ToastProvider>
+		</ThemeProvider>
 	);
 };

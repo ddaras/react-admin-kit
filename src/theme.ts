@@ -1,6 +1,6 @@
 const initialColorMode = 'light';
 
-const baseline = [0, 4, 8, 12, 16, 20, 24, 28, 32];
+const baseline = [0, 4, 8, 12, 16, 20, 24, 28, 32, 64, 128];
 
 export type Modes = {
 	light: 'light';
@@ -101,7 +101,18 @@ const lightModeColors: any = {
 	lime6: '#82c91e',
 	lime7: '#74b816',
 	lime8: '#66a80f',
-	lime9: '#5c940d'
+	lime9: '#5c940d',
+
+	danger0: '#fff5f5',
+	danger1: '#ffe3e3',
+	danger2: '#ffc9c9',
+	danger3: '#ffa8a8',
+	danger4: '#ff8787',
+	danger5: '#ff6b6b',
+	danger6: '#fa5252',
+	danger7: '#f03e3e',
+	danger8: '#e03131',
+	danger9: '#c92a2a'
 };
 
 // colors

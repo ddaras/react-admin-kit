@@ -74,21 +74,22 @@ export const GlobalStyles = createGlobalStyle`
 		font-family: ${theme.fonts.semiBold};
 		font-size: ${theme.fontSizes.caption};
 		line-height: ${theme.lineHeights.caption};
+		margin-bottom: ${theme.space[1]}px;
 	}
 
-	button {
+	button, [role=button] {
 		font-family: ${theme.fonts.bold};
 		font-size: ${theme.fontSizes.body};
 		line-height: ${theme.lineHeights.body};
 	}
 
-	input {
+	input, textarea {
 		font-family: ${theme.fonts.regular};
 		font-size: ${theme.fontSizes.body};
 		line-height: ${theme.lineHeights.body};
 	}
 
-	input::placeholder {
+	input::placeholder, textarea::placeholder {
 		color: ${theme.colors.grey4};
 	}
 

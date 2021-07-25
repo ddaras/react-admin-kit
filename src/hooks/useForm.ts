@@ -1,48 +1,66 @@
 import { useState } from 'react';
 import { useMutation } from '@apollo/client';
 
-const useForm = (mutation: any, initialState: Object = {}) => {
+interface IOptions {
+	initialState?: object;
+	hasInput?: boolean;
+	onSuccess?: (res: any) => void;
+}
+
+const useForm = (
+	mutation: any,
+	{ initialState = {}, hasInput = false, onSuccess }: IOptions = {}
+) => {
 	const [mutate, { loading }] = useMutation(mutation);
-	const [values, setValues] = useState<Object>(initialState);
+	const [values, setValues] = useState<any>(initialState);
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		// one step nested keys
-		let pair;
-		const key: any = e.target.name.split('.');
+		const key: any = e.target.name;
 		const val = e.target.value;
-		if (key.length > 1) {
-			pair = {
-				[key[0]]: {
-					[key[1]]: val
-				}
-			};
-		} else {
-			pair = {
-				[key]: val
-			};
-		}
 
 		setValues({
 			...values,
-			...pair
+			[key]: val
 		});
 	};
 
-	const handleSubmit = (onSubmit: any = () => {}) => async (
-		e: React.FormEvent<HTMLFormElement>
-	) => {
-		e.preventDefault();
+	const setValue = (key: string, val: any) => {
+		setValues({
+			...values,
+			[key]: val
+		});
+	};
+
+	const handleSubmit = async (values2?: any) => {
+		const newValues = { ...values, ...values2 };
+
+		if (hasInput && newValues.id) delete newValues.id;
+
+		const variables = hasInput
+			? { id: values.id || undefined, input: newValues }
+			: newValues;
+
+		// keep deleted id
+		setValues({ ...values, ...values2 });
+
 		try {
 			const res = await mutate({
-				variables: values
+				variables
 			});
-			onSubmit(res);
+
+			onSuccess && onSuccess(res);
 		} catch (error) {
-			onSubmit(error);
+			// error
 		}
 	};
 
-	return { values, handleChange, handleSubmit, loading };
+	return {
+		values,
+		change: handleChange,
+		setValue,
+		submit: handleSubmit,
+		submitting: loading
+	};
 };
 
 export default useForm;

@@ -38,12 +38,16 @@ const errorLink = onError(({ graphQLErrors, networkError, response }) => {
 const authLink = setContext(async (_, { headers }) => {
 	const token = localStorage.getItem('token');
 
-	return {
-		headers: {
-			...headers,
-			authorization: token ? `Bearer ${token}` : ''
-		}
-	};
+	if (token) {
+		return {
+			headers: {
+				...headers,
+				authorization: token ? `Bearer ${token}` : ''
+			}
+		};
+	}
+
+	return null;
 });
 
 const splitLink = split(

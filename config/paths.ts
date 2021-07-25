@@ -13,6 +13,7 @@ export const PATHS: Record<string, string> = {
 	contexts: resolve('./src/contexts'),
 	components: resolve('./src/components'),
 	containers: resolve('./src/containers'),
+	modules: resolve('./src/modules'),
 	nodeModules: resolve('./node_modules'),
 	env: resolve('./.env'),
 	envDevelopment: resolve('./.env.development')

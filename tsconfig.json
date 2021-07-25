@@ -11,7 +11,8 @@
 			"@contexts/*": ["src/contexts/*"],
 			"@graphql/*": ["src/graphql/*"],
 			"@components/*": ["src/components/*"],
-			"@containers/*": ["src/containers/*"]
+			"@containers/*": ["src/containers/*"],
+			"@modules/*": ["src/modules/*"]
 		},
 		"strict": true,
 		"target": "es5",
